@@ -1,4 +1,4 @@
-# Backend - DDD REST API
+# Frontend - SPA Angular
 SPA em Angular que integra com a API "backend-desafio-wa-ecommerce-api", modelo do projeto de e-commerce para challenge da WA.
 
 ## Development server
