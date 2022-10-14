@@ -1,0 +1,12 @@
+<mat-toolbar color="primary">
+  <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>DESAFIO [WA] - E-COMMERCE</span>
+  <span class="example-spacer"></span>
+  <button mat-raised-button color="warn" (click)="openDialog()">Adicionar Produtos</button>
+</mat-toolbar>
+
+<tabela [displayedColumns]="displayedColumns" [dataSource]="dataSource"></tabela>
+
+<graficos></graficos>

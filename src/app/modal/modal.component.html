@@ -1,0 +1,94 @@
+<h1 mat-dialog-title>Adicionar Produto</h1>
+<div mat-dialog-content>
+  <form novalidate [formGroup]="produtoForm">
+    Produtos
+      <mat-form-field appearance="outline">
+        <mat-label>Nome</mat-label>
+        <input formControlName="nome" matInput placeholder="Nome do Produto">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Descrição do Produto</mat-label>
+        <input formControlName="descricaoProduto" matInput placeholder="Descrição do Produto">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Valor</mat-label>
+        <input formControlName="valor" type="number" matInput placeholder="Valor" maxlength="9">
+      </mat-form-field>
+
+    Equipe
+      <mat-form-field appearance="outline">
+        <mat-label>Nome da equipe</mat-label>
+        <input formControlName="equipe" matInput placeholder="Equipe">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Descrição da Equipe</mat-label>
+        <input formControlName="descricaoEquipe" matInput placeholder="Descrição da Equipe">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Placa do Veiculo</mat-label>
+        <input formControlName="placaVeiculoUtilizado" matInput placeholder="Placa do Veiculo" maxlength="8">
+      </mat-form-field>
+
+    Endereço de Entrega
+      <mat-form-field appearance="outline">
+        <mat-label>Cep</mat-label>
+        <input formControlName="cep" matInput placeholder="Cep" maxlength="9">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Logradouro</mat-label>
+        <input formControlName="logradouro" matInput placeholder="Logradouro">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Número</mat-label>
+        <input formControlName="numero" type="number" matInput placeholder="Numero" maxlength="9">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Complemento</mat-label>
+        <input formControlName="complemento" matInput placeholder="Complemento">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Bairro</mat-label>
+        <input formControlName="bairro" matInput placeholder="Bairro">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Cidade</mat-label>
+        <input formControlName="cidade" matInput placeholder="Cidade">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Uf</mat-label>
+        <input formControlName="uf" matInput placeholder="Uf" maxlength="2">
+      </mat-form-field>
+
+        <mat-form-field style="margin-left: 5px;" appearance="outline">
+          <mat-label>Status</mat-label>
+          <mat-select formControlName="status">
+              <mat-option *ngFor="let status of statu" [value]="status.invalue">
+                {{status.inviewValue}}
+              </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Data da entrega</mat-label>
+          <input formControlName="DataPic" matInput [matDatepicker]="picker"
+                (dateInput)="addEvent('input', $event)" (dateChange)="addEvent('change', $event)">
+          <mat-hint>dia/mes/ano</mat-hint>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-action [align]="'end'">
+    <button mat-raised-button color="warn" mat-dialog-close>Fechar</button>
+    <button style="margin-left: 8px;" mat-raised-button color="primary" (click)="salvar()">{{acaoBtn}}</button>
+</div>

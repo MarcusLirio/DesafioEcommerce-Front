@@ -1,0 +1,69 @@
+<div class="container">
+    <div style="margin-top: 12px;">
+    <mat-form-field appearance="standard">
+      <mat-label>Pesquisa</mat-label>
+      <input matInput (keyup)="aplicarFiltro($event)" placeholder="Pesquisar" #input>
+    </mat-form-field>
+
+    <div class="mat-elevation-z8">
+      <table mat-table [dataSource]="dataSource" matSort>
+
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
+          <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="produtos">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Produtos</th>
+          <td mat-cell *matCellDef="let row"> {{row.produtos}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="equipe">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Equipe</th>
+          <td mat-cell *matCellDef="let row"> {{row.equipe}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="placa">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Placa</th>
+          <td mat-cell *matCellDef="let row"> {{row.placa}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+          <td mat-cell *matCellDef="let row"> {{row.status}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="dataEntrega">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Data Entrega</th>
+          <td mat-cell *matCellDef="let row"> {{row.dataEntrega}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="dataCriacao">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Data Criação</th>
+          <td mat-cell *matCellDef="let row"> {{row.dataCriacao}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="ACOES">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Ações </th>
+            <td mat-cell *matCellDef="let row">
+                <button (click)="editarPedido(row.id)" mat-icon-button color="primary">
+                    <mat-icon>edit</mat-icon>
+                </button>
+                <button (click)="deletarPedido(row.id)" mat-icon-button color="warn">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </td>
+          </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+        </tr>
+      </table>
+
+      <mat-paginator [pageSizeOptions]="[20]" aria-label="Select page of users"></mat-paginator>
+    </div>
+    </div>
+  </div>

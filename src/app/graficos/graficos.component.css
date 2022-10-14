@@ -1,0 +1,9 @@
+.row{
+    position: relative;
+    margin: 25px;
+    top: 0;
+    overflow: hidden;
+    width: 90%;
+    align-items: center;
+    justify-content: center;
+}
