@@ -22,6 +22,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import {NgApexchartsModule} from 'ng-apexcharts';
+import { AppRoutingModule } from './app.routing.modules';
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,7 +50,8 @@ import {NgApexchartsModule} from 'ng-apexcharts';
     MatDatepickerModule,
     MatNativeDateModule,
     NgApexchartsModule,
-    NgxChartsModule
+    NgxChartsModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -4,6 +4,8 @@ import { ApiService } from '../Services/api.service';
 import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog'
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { TabelaModel } from '../tabela/tabela.model';
+import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 interface status {
   invalue: string;
@@ -21,8 +23,11 @@ export class ModalComponent implements OnInit {
   acaoBtn: string = "Salvar";
   constructor(private formBuilder : FormBuilder,
     @Inject(MAT_DIALOG_DATA) public editarPedido: any,
-     private api: ApiService,
-      private dialogRef: MatDialogRef<TabelaModel> ) { }
+    private api: ApiService,
+    private dialogRef: MatDialogRef<TabelaModel>,
+    private router: Router,
+    private location: Location
+    ) { }
 
   ngOnInit(): void {
     this.produtoForm = this.formBuilder.group({
@@ -85,9 +90,9 @@ export class ModalComponent implements OnInit {
         .subscribe({
           next:(res) => {
             alert("Pedido adicionado com sucesso!");
-
             this.produtoForm.reset();
             this.dialogRef.close('save');
+            location.reload();
           },
           error: (err) => {
             alert("Não foi possível adicionar o pedido. - " + err);
@@ -106,9 +111,10 @@ export class ModalComponent implements OnInit {
     .subscribe({
       next: (res) => {
         alert("Pedido atualizado com sucesso!");
-
         this.produtoForm.reset();
         this.dialogRef.close('Atualizar');
+        this.router.navigate(['/tabela']);
+        location.reload();
       },
       error: (err) => {
         alert("Não foi possível atualizar o pedido. - " + err);

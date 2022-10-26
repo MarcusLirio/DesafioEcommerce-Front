@@ -6,7 +6,8 @@ import {MatTableDataSource} from '@angular/material/table';
 import {ModalComponent} from '../modal/modal.component'
 import {MatDialog} from '@angular/material/dialog';
 import { TabelaModel } from './tabela.model';
-import { id } from '@swimlane/ngx-charts';
+import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'tabela',
@@ -16,7 +17,12 @@ import { id } from '@swimlane/ngx-charts';
 
 export class TabelaComponent implements OnInit {
 
-  constructor(public api: ApiService, public dialog: MatDialog) { }
+  constructor(
+    public api: ApiService, 
+    public dialog: MatDialog,  
+    private router: Router,
+    private location: Location
+    ) { }
 
   @Input() displayedColumns: string[] = [];
   @Input() dataSource!: MatTableDataSource<TabelaModel>;
@@ -72,6 +78,8 @@ export class TabelaComponent implements OnInit {
     .subscribe({
       next:() => {
         alert("Pedido excluído com sucesso.");
+        this.router.navigate(['/tabela']);
+        location.reload();
       },
       error: (err) => {
         alert("Falha na exclusão do Pedido.");
