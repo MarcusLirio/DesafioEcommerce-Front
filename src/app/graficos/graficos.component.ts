@@ -1,10 +1,11 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+
 import { Component} from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
-import { Chart } from 'chart.js';
-import { map, Observable } from 'rxjs';
+import { Chart,registerables } from 'chart.js';
 import { ApiService } from '../Services/api.service';
 import { TabelaModel } from '../tabela/tabela.model';
+import {CategoryScale} from 'chart.js'; 
+Chart.register(CategoryScale);
+Chart.register(...registerables);
 
 @Component({
   selector: 'graficos',
@@ -19,46 +20,42 @@ export class GraficosComponent{
   ngOnInit()
   {
     this.produto.getGraficos().subscribe(res =>{
-
-      let graficoProduto = res.map(item => item.produtos)
-      let graficoValor = res.map(item => item.valor)
+      debugger
+      const ctx: any= document.getElementById('chart');
+      let chartDataValues = [
+        { "name": "qtdProdutosValorAteTresMil", "value": 0 }, 
+        { "name": "qtdProdutosValorMaiorQueTresMil", "value": 0 }
+      ];
       
-      let graficosPie = []
-      let grafico = new TabelaModel()
-      graficosPie.push(grafico.nome, grafico.valor)
-      
-      // this.chart = new Chart('canvas', {
-      //   type: 'line',
-      //   data: {
-      //     labels: grafico,
-      //     datasets: [
-      //       { 
-      //         data: graficoProduto,
-      //         borderColor: "#3cba9f",
-      //         fill: false
-      //       },
-      //       { 
-      //         data: graficoValor,
-      //         borderColor: "#ffcc00",
-      //         fill: false
-      //       },
-      //     ]
-      //   },
-      //   options: {
-      //     legend: {
-      //       display: false
-      //     },
-      //     scales: {
-      //       xAxes: [{
-      //         display: true
-      //       }],
-      //       yAxes: [{
-      //         display: true
-      //       }],
-      //     }
-      //   }
-      // });
+      if (res && res.length) {
+          res.filter((item) => { 
+              if (item.valor <= 3000)
+                  return chartDataValues[0].value++;
+              else
+                  return chartDataValues[1].value++;
+          });    
+      }
 
+      const data = {
+        labels: [
+          'Qtd Produtos Valor Até 3000',
+          'Qtd Produtos Valor Maior Que 3000'
+        ],
+        datasets: [{
+          label: 'Qtd de Produtos entregues por valor (Até 3.000,00 ou maior).',
+          data: chartDataValues,
+          backgroundColor: [
+            'rgb(255, 99, 132)',
+            'rgb(255, 205, 86)'
+          ],
+          hoverOffset: 4
+        }]
+      };
+
+      this.chart = new Chart(ctx, {
+        type: 'pie',
+        data: data
+      });
     });
   }
 }
